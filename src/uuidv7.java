@@ -1,5 +1,6 @@
+import java.nio.ByteBuffer;
 import java.security.SecureRandom;
-import java.time.Instant;
+import java.util.UUID;
 
 public class UUIDv7 {
     private static final SecureRandom random = new SecureRandom();
@@ -10,7 +11,7 @@ public class UUIDv7 {
         random.nextBytes(value);
 
         // current timestamp in ms
-        long timestamp = Instant.now().toEpochMilli();
+        long timestamp = System.currentTimeMillis();
 
         // timestamp
         value[0] = (byte) ((timestamp >> 40) & 0xFF);
@@ -25,6 +26,14 @@ public class UUIDv7 {
         value[8] = (byte) ((value[8] & 0x3F) | 0x80);
 
         return value;
+    }
+
+    public static UUID generateUUID() {
+        byte[] value = UUIDv7.generate();
+        ByteBuffer buf = ByteBuffer.wrap(value);
+        long high = buf.getLong();
+        long low = buf.getLong();
+        return new UUID(high, low);
     }
 
     public static void main(String[] args) {
