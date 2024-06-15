@@ -51,4 +51,4 @@ See [RFC 9652](https://www.rfc-editor.org/rfc/rfc9562#name-uuid-version-7) for d
 
 ## License
 
-BSD Zero-Clause license.
+The Unlicense.
