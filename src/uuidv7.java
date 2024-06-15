@@ -36,7 +36,7 @@ public class UUIDv7 {
         return value;
     }
 
-   public static void main(String[] args) {
+    public static void main(String[] args) {
         var uuid = UUIDv7.randomUUID();
         System.out.println(uuid);
     }
