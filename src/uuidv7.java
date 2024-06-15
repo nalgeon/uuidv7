@@ -5,7 +5,15 @@ import java.util.UUID;
 public class UUIDv7 {
     private static final SecureRandom random = new SecureRandom();
 
-    public static byte[] generate() {
+    public static UUID randomUUID() {
+        byte[] value = randomBytes();
+        ByteBuffer buf = ByteBuffer.wrap(value);
+        long high = buf.getLong();
+        long low = buf.getLong();
+        return new UUID(high, low);
+    }
+
+    public static byte[] randomBytes() {
         // random bytes
         byte[] value = new byte[16];
         random.nextBytes(value);
@@ -28,19 +36,8 @@ public class UUIDv7 {
         return value;
     }
 
-    public static UUID generateUUID() {
-        byte[] value = UUIDv7.generate();
-        ByteBuffer buf = ByteBuffer.wrap(value);
-        long high = buf.getLong();
-        long low = buf.getLong();
-        return new UUID(high, low);
-    }
-
-    public static void main(String[] args) {
-        byte[] uuidVal = UUIDv7.generate();
-        for (byte b : uuidVal) {
-            System.out.printf("%02x", b);
-        }
-        System.out.println();
+   public static void main(String[] args) {
+        var uuid = UUIDv7.randomUUID();
+        System.out.println(uuid);
     }
 }
