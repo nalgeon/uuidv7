@@ -5,7 +5,7 @@ def uuidv7
   # random bytes
   value = SecureRandom.random_bytes(16).bytes
 
-# current timestamp in ms
+  # current timestamp in ms
   timestamp = (Time.now.to_f * 1000).to_i
 
   # timestamp
