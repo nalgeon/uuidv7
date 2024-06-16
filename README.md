@@ -47,7 +47,8 @@ See [RFC 9652](https://www.rfc-editor.org/rfc/rfc9562#name-uuid-version-7) for d
 [Shell](src/uuidv7.sh) •
 [SQL](src/uuidv7.sql) •
 [Swift](src/uuidv7.swift) •
-[Zig](src/uuidv7.zig)
+[Zig](src/uuidv7.zig) •
+[Nim](src/uuidv7.nim)
 
 ## License
 
