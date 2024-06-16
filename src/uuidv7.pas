@@ -1,5 +1,7 @@
 program UUIDv7;
 
+{$mode objfpc}{$H+}
+
 uses
   SysUtils, DateUtils;
 
