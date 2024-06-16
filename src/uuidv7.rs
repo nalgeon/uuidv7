@@ -1,11 +1,10 @@
-use rand::Rng;
-use std::time::{SystemTime, UNIX_EPOCH};
 use std::error::Error;
+use std::time::{SystemTime, UNIX_EPOCH};
 
 fn uuidv7() -> Result<[u8; 16], Box<dyn Error>> {
     // random bytes
     let mut value = [0u8; 16];
-    rand::thread_rng().fill(&mut value);
+    getrandom::getrandom(&mut value)?;
 
     // current timestamp in ms
     let timestamp = match SystemTime::now().duration_since(UNIX_EPOCH) {
@@ -35,7 +34,7 @@ fn main() {
                 print!("{:02x}", byte);
             }
             println!();
-        },
+        }
         Err(e) => eprintln!("Error: {}", e),
     }
 }
