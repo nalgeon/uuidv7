@@ -17,7 +17,11 @@ var
   uuid: TGUID;
   I: Integer;
 begin
-  timestamp := DateTimeToUnix(Now) * 1000;
+  {$IFDEF FPC}
+  timestamp := DateTimeToUnix(Now) * 1000; // seconds accuracy  
+  {$ELSE}
+  timestamp := DateTimeToMilliseconds(Now) - Int64(UnixDateDelta + DateDelta) * MSecsPerDay; // millisecond accuracy 
+  {$ENDIF}
 
   // Generate 10 random bytes
   for i := 0 to 9 do
