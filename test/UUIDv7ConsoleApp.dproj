@@ -2,7 +2,7 @@
     <PropertyGroup>
         <Base>True</Base>
         <AppType>Console</AppType>
-        <Config Condition="'$(Config)'==''">Debug</Config>
+        <Config Condition="'$(Config)'==''">Release</Config>
         <FrameworkType>None</FrameworkType>
         <MainSource>UUIDv7ConsoleApp.dpr</MainSource>
         <Platform Condition="'$(Platform)'==''">Win32</Platform>

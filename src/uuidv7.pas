@@ -1,21 +1,14 @@
-// Use as a regular unit from Delphi, or it can run as a console app from FreePascal
-{$IFDEF FPC}
-program UUIDv7;
-{$mode objfpc}{$H+}
-{$ELSE}
+// Use as a regular unit from Delphi, or run as a console app from FreePascal
 unit uuidv7;
 
 interface
-{$ENDIF}
 
 uses
   SysUtils, DateUtils;
 
-{$IFNDEF FPC}
 function GenerateUUIDv7: TGUID;
 
 implementation
-{$ENDIF}
 
 function GenerateUUIDv7: TGUID;
 var
@@ -41,7 +34,7 @@ begin
   Result := uuid;
 end;
 
-
+// Optionally remove this to make a regular unit for FPC too
 {$IFDEF FPC}
 var i: Integer;
 begin

@@ -8,9 +8,10 @@ uses
 begin
   Randomize;
   try
-  for var i := 0 to 30 do
-
-    Writeln('Generated UUIDv7: ', GUIDToString( GenerateUUIDv7).ToLower);
+    for var i := 0 to 30 do
+    begin
+      Writeln(GuidToString(GenerateUUIDv7).ToLower);
+    end;
   except
     on E: Exception do
       Writeln(E.ClassName, ': ', E.Message);
