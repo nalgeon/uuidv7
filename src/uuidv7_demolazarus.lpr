@@ -16,10 +16,12 @@ uses
 
 var i: integer;
 begin
+  {$IFNDEF USE_MORMOT_RNG}
+  Randomize;
+  {$ENDIF}
   try
-  for i := 0 to 25 do
-
-    Writeln('Generated UUIDv7: ', GUIDToString( GenerateUUIDv7));
+    for i := 0 to 25 do
+      Writeln('Generated UUIDv7: ', GUIDToString( GenerateUUIDv7));
   except
     on E: Exception do
       Writeln(E.ClassName, ': ', E.Message);
