@@ -4,12 +4,12 @@ extension UUID {
     static func v7() -> Self {
         // random bytes
         var value = (
-            UInt8.random(in: 0...255),
-            UInt8.random(in: 0...255),
-            UInt8.random(in: 0...255),
-            UInt8.random(in: 0...255),
-            UInt8.random(in: 0...255),
-            UInt8.random(in: 0...255),
+            UInt8(0),
+            UInt8(0),
+            UInt8(0),
+            UInt8(0),
+            UInt8(0),
+            UInt8(0),
             UInt8.random(in: 0...255),
             UInt8.random(in: 0...255),
             UInt8.random(in: 0...255),
