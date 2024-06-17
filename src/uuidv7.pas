@@ -2,7 +2,7 @@ unit uuidv7;
 
 interface
 
-{$DEFINE USE_MORMOT_RNG}
+{.$DEFINE USE_MORMOT_RNG}
 
 uses
   SysUtils,
