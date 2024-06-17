@@ -3,18 +3,13 @@ const std = @import("std");
 fn uuidv7() [16]u8 {
     // random bytes
     var value: [16]u8 = undefined;
-    std.crypto.random.bytes(&value);
+    std.crypto.random.bytes(value[6..]);
 
     // current timestamp in ms
-    const timestamp: u64 = @intCast(std.time.milliTimestamp());
+    const timestamp: u48 = @intCast(std.time.milliTimestamp());
 
     // timestamp
-    value[0] = @intCast((timestamp >> 40) & 0xFF);
-    value[1] = @intCast((timestamp >> 32) & 0xFF);
-    value[2] = @intCast((timestamp >> 24) & 0xFF);
-    value[3] = @intCast((timestamp >> 16) & 0xFF);
-    value[4] = @intCast((timestamp >> 8) & 0xFF);
-    value[5] = @intCast(timestamp & 0xFF);
+    std.mem.writeInt(u48, value[0..6], timestamp, .big);
 
     // version and variant
     value[6] = (value[6] & 0x0F) | 0x70;
@@ -25,8 +20,5 @@ fn uuidv7() [16]u8 {
 
 pub fn main() void {
     const uuid_val = uuidv7();
-    for (uuid_val) |byte| {
-        std.debug.print("{x:0>2}", .{byte});
-    }
-    std.debug.print("\n", .{});
+    std.debug.print("{s}\n", .{std.fmt.bytesToHex(uuid_val, .upper)});
 }
