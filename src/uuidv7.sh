@@ -4,7 +4,7 @@ uuidv7() {
     # current timestamp in ms. POSIX date does not support %3N.
     timestamp=$(date +%s)000
     timestamp_hi=$(( timestamp >> 16 ))
-    timestamp_lo=$(( timestamp & 0xFF ))
+    timestamp_lo=$(( timestamp & 0xFFFF ))
 
     # 16 random bits (12 will be used)
     rand_a=0x$(LC_ALL=C tr -dc '0-9a-f' < /dev/urandom|head -c4)
