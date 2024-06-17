@@ -1,6 +1,6 @@
 -module(uuidv7).
 
--export([generate/0, main/0]).
+-export([generate/0, main/1]).
 
 -spec generate() -> binary().
 generate() ->
@@ -10,6 +10,8 @@ generate() ->
     Var = 2#10,
     <<UnixTsMs:48, Ver:4, RandA:12, Var:2, RandB:62>>.
 
-main() ->
-    HexUUIDv7 = binary:encode_hex(generate(), lowercase),
-    io:format("~s~n", [HexUUIDv7]).
+main(_) ->
+    UUIDv7 = generate(),
+    %% note: if you use an erlang release newer than OTP23,
+    %%       there is binary:encode_hex/1,2
+    io:format("~s~n", [[io_lib:format("~2.16.0b",[X]) || <<X:8>> <= UUIDv7]]).
