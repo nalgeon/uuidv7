@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{358F01F7-37A4-4547-B65C-9E0CB3D5BF73}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="Uuidv7Testing.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="UUIDv7ConsoleApp.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="Uuidv7Testing">
+        <MSBuild Projects="Uuidv7Testing.dproj"/>
+    </Target>
+    <Target Name="Uuidv7Testing:Clean">
+        <MSBuild Projects="Uuidv7Testing.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Uuidv7Testing:Make">
+        <MSBuild Projects="Uuidv7Testing.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="UUIDv7ConsoleApp">
+        <MSBuild Projects="UUIDv7ConsoleApp.dproj"/>
+    </Target>
+    <Target Name="UUIDv7ConsoleApp:Clean">
+        <MSBuild Projects="UUIDv7ConsoleApp.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="UUIDv7ConsoleApp:Make">
+        <MSBuild Projects="UUIDv7ConsoleApp.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="Uuidv7Testing;UUIDv7ConsoleApp"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="Uuidv7Testing:Clean;UUIDv7ConsoleApp:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="Uuidv7Testing:Make;UUIDv7ConsoleApp:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

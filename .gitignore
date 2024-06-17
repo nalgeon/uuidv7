@@ -2,3 +2,11 @@
 **/__history
 *.local
 *.identcache
+**/Debug
+**/Release
+**/backup
+**/lib
+*.exe
+*.lpi
+*.lps
+*.res
