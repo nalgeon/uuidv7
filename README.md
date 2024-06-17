@@ -34,11 +34,13 @@ See [RFC 9652](https://www.rfc-editor.org/rfc/rfc9562#name-uuid-version-7) for d
 [C++](src/uuidv7.cpp) •
 [Dart](src/uuidv7.dart) •
 [Elixir](src/uuidv7.exs) •
+[Erlang](src/uuidv7.erl) •
 [Go](src/uuidv7.go) •
 [Java](src/uuidv7.java) •
 [JavaScript](src/uuidv7.js) •
 [Kotlin](src/uuidv7.kt) •
 [Lua](src/uuidv7.lua) •
+[Nim](src/uuidv7.nim) •
 [PHP](src/uuidv7.php) •
 [Python](src/uuidv7.py) •
 [R](src/uuidv7.r) •
@@ -47,10 +49,8 @@ See [RFC 9652](https://www.rfc-editor.org/rfc/rfc9562#name-uuid-version-7) for d
 [Shell](src/uuidv7.sh) •
 [SQL](src/uuidv7.sql) •
 [Swift](src/uuidv7.swift) •
-[Erlang](src/uuidv7.erl) •
-[Zig](src/uuidv7.zig) •
-[Nim](src/uuidv7.nim) •
-[V](src/uuidv7.v)
+[V](src/uuidv7.v) •
+[Zig](src/uuidv7.zig)
 
 ## License
 
