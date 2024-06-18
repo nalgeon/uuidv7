@@ -18,12 +18,12 @@ func uuidv7() ([16]byte, error) {
 	timestamp := uint64(time.Now().UnixNano() / int64(time.Millisecond))
 
 	// timestamp
-	value[0] = byte((timestamp >> 40) & 0xFF)
-	value[1] = byte((timestamp >> 32) & 0xFF)
-	value[2] = byte((timestamp >> 24) & 0xFF)
-	value[3] = byte((timestamp >> 16) & 0xFF)
-	value[4] = byte((timestamp >> 8) & 0xFF)
-	value[5] = byte(timestamp & 0xFF)
+	value[0] = byte(timestamp >> 40)
+	value[1] = byte(timestamp >> 32)
+	value[2] = byte(timestamp >> 24)
+	value[3] = byte(timestamp >> 16)
+	value[4] = byte(timestamp >> 8)
+	value[5] = byte(timestamp)
 
 	// version and variant
 	value[6] = (value[6] & 0x0F) | 0x70
