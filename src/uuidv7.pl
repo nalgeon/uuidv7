@@ -53,10 +53,10 @@ sub uuidv7 {
 	# Hex string with no hypens
 	if ($type eq "hex") {
 		return bin2hex($uuid);
-		# Raw 16 byte string
+	# Raw 16 byte string
 	} elsif ($type eq "raw") {
 		return $uuid;
-		# String representation with hypens (default)
+	# String representation with hypens (default)
 	} else {
 		return uuid_format($uuid);
 	}
