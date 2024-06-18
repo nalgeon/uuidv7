@@ -1,6 +1,6 @@
 # UUIDv7 in N languages
 
-UUIDv7 is a 128-bit unique identifier like it's older siblings, such as the widely used UUIDv4. But unlike v4, UUIDv7 is time-sortable with 1 ms precision. By combining the timestamp and the random parts, UUIDv7 becomes an excellent choice for record identifiers in databases, including distributed ones.
+UUIDv7 is a 128-bit unique identifier like its older siblings, such as the widely used UUIDv4. But unlike v4, UUIDv7 is time-sortable with 1 ms precision. By combining the timestamp and the random parts, UUIDv7 becomes an excellent choice for record identifiers in databases, including distributed ones.
 
 This repo provides zero-dependency UUIDv7 implementations in various languages. If you spot a bug — please submit a pull request. PRs for other languages are also welcome!
 
