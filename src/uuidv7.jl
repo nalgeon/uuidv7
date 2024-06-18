@@ -4,16 +4,7 @@ function uuidv7()
 
   # current timestamp
   timestamp = trunc(UInt64, time() * 1000)
-
-  # timestamp
-  value[1:6] = [
-    timestamp >> 40 & 0xFF,
-    timestamp >> 32 & 0xFF,
-    timestamp >> 24 & 0xFF,
-    timestamp >> 16 & 0xFF,
-    timestamp >> 8 & 0xFF,
-    timestamp & 0xFF
-  ]
+  reinterpret(UInt8, [timestamp]) |> reverse! |> x -> copyto!(value, 1, x, 3, 6)
 
   # version and variant
   value[7] = value[7] & 0x0F | 0x70
