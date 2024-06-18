@@ -15,7 +15,7 @@ func uuidv7() ([16]byte, error) {
 	}
 
 	// current timestamp in ms
-	timestamp := uint64(time.Now().UnixNano() / int64(time.Millisecond))
+	timestamp := time.Now().UnixMilli()
 
 	// timestamp
 	value[0] = byte(timestamp >> 40)
