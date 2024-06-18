@@ -40,6 +40,7 @@ See [RFC 9652](https://www.rfc-editor.org/rfc/rfc9562#name-uuid-version-7) for d
 [Go](src/uuidv7.go) •
 [Java](src/uuidv7.java) •
 [JavaScript](src/uuidv7.js) •
+[Julia](src/uuidv7.jl) •
 [Kotlin](src/uuidv7.kt) •
 [Lua](src/uuidv7.lua) •
 [Nim](src/uuidv7.nim) •
