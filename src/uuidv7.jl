@@ -3,7 +3,7 @@ function uuidv7()
   value = rand(UInt8, 16)
 
   # current timestamp
-  timestamp = trunc(UInt64,time() * 1000)
+  timestamp = trunc(UInt64, time() * 1000)
 
   # timestamp
   value[1:6] = [
