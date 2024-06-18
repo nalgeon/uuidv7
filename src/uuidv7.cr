@@ -15,15 +15,7 @@ class Uuidv7
     # current timestamp
     #
     timestamp = Time.utc.to_unix_ms
-
-    # timestamp
-    #
-    value[0] = (timestamp >> 40 & 0xFF).to_u8
-    value[1] = (timestamp >> 32 & 0xFF).to_u8
-    value[2] = (timestamp >> 24 & 0xFF).to_u8
-    value[3] = (timestamp >> 16 & 0xFF).to_u8
-    value[4] = (timestamp >> 8 & 0xFF).to_u8
-    value[5] = (timestamp & 0xFF).to_u8
+    timestamp.unsafe_as(StaticArray(UInt8, 8)).reverse!.to_slice[2..].copy_to(value)
 
     # version and variant
     #
