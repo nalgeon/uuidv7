@@ -33,6 +33,7 @@ See [RFC 9652](https://www.rfc-editor.org/rfc/rfc9562#name-uuid-version-7) for d
 [C#](src/uuidv7.cs) •
 [C++](src/uuidv7.cpp) •
 [Clojure](src/uuidv7.clj) •
+[Crystal](src/uuidv7.cr) •
 [Dart](src/uuidv7.dart) •
 [Elixir](src/uuidv7.exs) •
 [Erlang](src/uuidv7.erl) •
