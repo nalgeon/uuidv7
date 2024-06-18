@@ -21,7 +21,4 @@ uuidv7() {
     printf "%08x-%04x-%04x-%4x-%s" "$timestamp_hi" "$timestamp_lo" "$ver_rand_a" "$var_rand_hi" "$rand_b_lo"
 }
 
-for byte in $(uuidv7); do
-    printf "%s" "$byte"
-done
-echo
+echo $(uuidv7)
