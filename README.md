@@ -1,6 +1,6 @@
 # UUIDv7 in N languages
 
-UUIDv7 is a 128-bit unique identifier like it's older siblings, such as the widely used UUIDv4. But unlike v4, UUIDv7 is time-sortable with 1 ms precision. By combining the timestamp and the random parts, UUIDv7 becomes an excellent choice for record identifiers in databases, including distributed ones.
+UUIDv7 is a 128-bit unique identifier like its older siblings, such as the widely used UUIDv4. But unlike v4, UUIDv7 is time-sortable with 1 ms precision. By combining the timestamp and the random parts, UUIDv7 becomes an excellent choice for record identifiers in databases, including distributed ones.
 
 This repo provides zero-dependency UUIDv7 implementations in various languages. If you spot a bug — please submit a pull request. PRs for other languages are also welcome!
 
@@ -32,13 +32,19 @@ See [RFC 9652](https://www.rfc-editor.org/rfc/rfc9562#name-uuid-version-7) for d
 [C](src/uuidv7.c) •
 [C#](src/uuidv7.cs) •
 [C++](src/uuidv7.cpp) •
+[Clojure](src/uuidv7.clj) •
+[Crystal](src/uuidv7.cr) •
 [Dart](src/uuidv7.dart) •
 [Elixir](src/uuidv7.exs) •
+[Erlang](src/uuidv7.erl) •
 [Go](src/uuidv7.go) •
 [Java](src/uuidv7.java) •
 [JavaScript](src/uuidv7.js) •
+[Julia](src/uuidv7.jl) •
 [Kotlin](src/uuidv7.kt) •
 [Lua](src/uuidv7.lua) •
+[Nim](src/uuidv7.nim) •
+[Perl](src/uuidv7.pl) •
 [PHP](src/uuidv7.php) •
 [Pascal](src/uuidv7.pas) •
 [Python](src/uuidv7.py) •
@@ -48,8 +54,8 @@ See [RFC 9652](https://www.rfc-editor.org/rfc/rfc9562#name-uuid-version-7) for d
 [Shell](src/uuidv7.sh) •
 [SQL](src/uuidv7.sql) •
 [Swift](src/uuidv7.swift) •
-[Zig](src/uuidv7.zig) •
-[Nim](src/uuidv7.nim)
+[V](src/uuidv7.v) •
+[Zig](src/uuidv7.zig)
 
 ## License
 

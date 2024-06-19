@@ -1,41 +1,24 @@
 #!/bin/sh
 
 uuidv7() {
-    # random bytes
-    rand_bytes=$(dd if=/dev/urandom bs=1 count=16 2>/dev/null | xxd -p)
+    # current timestamp in ms. POSIX date does not support %3N.
+    timestamp=$(date +%s)000
+    timestamp_hi=$(( timestamp >> 16 ))
+    timestamp_lo=$(( timestamp & 0xFFFF ))
 
-    # current timestamp in ms
-    timestamp=$(date +%s%3N)
-    t_hex=$(printf "%012x" $timestamp)
+    # 16 random bits (12 will be used)
+    rand_a=0x$(LC_ALL=C tr -dc '0-9a-f' < /dev/urandom|head -c4)
+    # ver is 0x7
+    ver_rand_a=$(( 0x7000 | ( 0xFFF & rand_a ) )) 
 
-    # timestamp
-    value[0]=${t_hex:0:2}
-    value[1]=${t_hex:2:2}
-    value[2]=${t_hex:4:2}
-    value[3]=${t_hex:6:2}
-    value[4]=${t_hex:8:2}
-    value[5]=${t_hex:10:2}
+    # 16 random bits (14 will be used)
+    rand_b_hi=0x$(LC_ALL=C tr -dc '0-9a-f' < /dev/urandom|head -c4)
+    # var is 0b10
+    var_rand_hi=$(( 0x8000 | ( 0x3FFF & rand_b_hi ) ))
+    # remaining 48 bits of rand b
+    rand_b_lo=$(LC_ALL=C tr -dc '0-9a-f' < /dev/urandom|head -c12)
 
-    # version / rand_a
-    value[6]=$(printf "%02x" $((0x70 | (0x${rand_bytes:12:2} & 0x0F))))
-    value[7]=${rand_bytes:14:2}
-
-    # variant / rand_b
-    value[8]=$(printf "%02x" $((0x80 | (0x${rand_bytes:16:2} & 0x3F))))
-
-    # rand_b
-    value[9]=${rand_bytes:18:2}
-    value[10]=${rand_bytes:20:2}
-    value[11]=${rand_bytes:22:2}
-    value[12]=${rand_bytes:24:2}
-    value[13]=${rand_bytes:26:2}
-    value[14]=${rand_bytes:28:2}
-    value[15]=${rand_bytes:30:2}
-
-    echo "${value[@]}"
+    printf "%08x-%04x-%04x-%4x-%s" "$timestamp_hi" "$timestamp_lo" "$ver_rand_a" "$var_rand_hi" "$rand_b_lo"
 }
 
-for byte in $(uuidv7); do
-    printf "%s" "$byte"
-done
-echo
+echo $(uuidv7)
