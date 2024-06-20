@@ -2,7 +2,7 @@
 
 (defun uuidv7 ()
   "Generates an array representing the bytes of an UUIDv7 label."
-  (let* ((timestamp (truncate (* (float-time) 1000)))
+  (let* ((timestamp (car (time-convert (current-time) 1000)))
          (timestamp-bytes
           (cl-loop for i from 5 downto 0
                    collect (logand (ash timestamp (* i -8)) #xFF)))
