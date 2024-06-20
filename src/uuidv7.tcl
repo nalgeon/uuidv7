@@ -12,7 +12,7 @@ proc ::uuidv7::generate { } {
     }
 
     # current timestamp in ms
-    set timestamp_ms [expr {[clock seconds] * 1000}]
+    set timestamp_ms [expr {[clock milliseconds]}]
 
     # timestamp
     set timestamp_bytes {}
