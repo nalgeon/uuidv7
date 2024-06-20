@@ -3,6 +3,7 @@ package main
 import (
 	"crypto/rand"
 	"fmt"
+	"math/big"
 	"time"
 )
 
@@ -15,15 +16,10 @@ func uuidv7() ([16]byte, error) {
 	}
 
 	// current timestamp in ms
-	timestamp := uint64(time.Now().UnixNano() / int64(time.Millisecond))
+	timestamp := big.NewInt(time.Now().UnixMilli())
 
 	// timestamp
-	value[0] = byte((timestamp >> 40) & 0xFF)
-	value[1] = byte((timestamp >> 32) & 0xFF)
-	value[2] = byte((timestamp >> 24) & 0xFF)
-	value[3] = byte((timestamp >> 16) & 0xFF)
-	value[4] = byte((timestamp >> 8) & 0xFF)
-	value[5] = byte(timestamp & 0xFF)
+	timestamp.FillBytes(value[0:6])
 
 	// version and variant
 	value[6] = (value[6] & 0x0F) | 0x70
@@ -33,12 +29,6 @@ func uuidv7() ([16]byte, error) {
 }
 
 func main() {
-	uuidVal, err := uuidv7()
-	if err != nil {
-		panic(err)
-	}
-	for _, byte := range uuidVal {
-		fmt.Printf("%02x", byte)
-	}
-	fmt.Println()
+	uuidVal, _ := uuidv7()
+	fmt.Printf("%x\n", uuidVal)
 }
