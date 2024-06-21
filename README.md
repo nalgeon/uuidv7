@@ -35,6 +35,7 @@ See [RFC 9652](https://www.rfc-editor.org/rfc/rfc9562#name-uuid-version-7) for d
 [Clojure](src/uuidv7.clj) •
 [Crystal](src/uuidv7.cr) •
 [Dart](src/uuidv7.dart) •
+[Emacs Lisp](src/uuidv7.el) •
 [Elixir](src/uuidv7.exs) •
 [Erlang](src/uuidv7.erl) •
 [Go](src/uuidv7.go) •
@@ -57,6 +58,7 @@ See [RFC 9652](https://www.rfc-editor.org/rfc/rfc9562#name-uuid-version-7) for d
 [Swift](src/uuidv7.swift) •
 [Tcl](src/uuidv7.tcl) •
 [V](src/uuidv7.v) •
+[Vimscript](src/uuidv7.vim) •
 [Zig](src/uuidv7.zig)
 
 ## License
