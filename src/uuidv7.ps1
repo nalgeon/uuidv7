@@ -16,4 +16,3 @@ function New-Uuidv7
 }
 
 (New-Uuidv7 | ForEach-Object ToString x2) -join ''
-

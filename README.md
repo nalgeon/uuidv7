@@ -47,7 +47,7 @@ See [RFC 9652](https://www.rfc-editor.org/rfc/rfc9562#name-uuid-version-7) for d
 [Perl](src/uuidv7.pl) •
 [PHP](src/uuidv7.php) •
 [Pascal](src/uuidv7.pas) •
-[Powershell](src/uuidv7.ps1) •
+[PowerShell](src/uuidv7.ps1) •
 [Python](src/uuidv7.py) •
 [R](src/uuidv7.r) •
 [Ruby](src/uuidv7.rb) •
