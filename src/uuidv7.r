@@ -13,6 +13,5 @@ uuidv7 <- function() {
   as.raw(value)
 }
 
-
 uuid_val <- uuidv7()
 cat(paste(sprintf('%02x', as.integer(uuid_val)), collapse = ''))
