@@ -1,5 +1,4 @@
 def "random uuid v7" [] {
-
   # timestamp in ms
   let timestamp_ms = (date now | into int) // 1_000_000
   let timestamp = $timestamp_ms | into binary | bytes at 0..=5 | bytes reverse
