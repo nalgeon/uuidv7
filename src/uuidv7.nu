@@ -12,7 +12,6 @@ def "random uuid v7" [] {
   let variant = $rand | bytes at 2..=2 | bits and 0x[3F] | bits or 0x[80]
 
   [ $timestamp $version ($rand | bytes at 1..=1) $variant ($rand | bytes at 3..) ] | bytes collect
-
 }
 
 random uuid v7 | encode hex
