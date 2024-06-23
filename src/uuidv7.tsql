@@ -33,4 +33,4 @@ begin
 
     -- Return the generated UUID v7-like value
     select @UUIDv7 as UUIDv7
-END
+end
