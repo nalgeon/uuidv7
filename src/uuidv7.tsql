@@ -1,36 +1,36 @@
-CREATE PROCEDURE GenerateUUIDv7
-AS
-BEGIN
+create procedure GenerateUUIDv7
+as
+begin
     -- Declare variables to hold different parts of the UUID
-    DECLARE @timestamp_hex    CHAR(8)
-    DECLARE @milliseconds_hex CHAR(4)
-    DECLARE @version_rand_a   CHAR(4)
-    DECLARE @variant_rand_b   CHAR(4)
-    DECLARE @rand_b           CHAR(12)
+    declare @timestamp_hex    char(8)
+    declare @milliseconds_hex char(4)
+    declare @version_rand_a   char(4)
+    declare @variant_rand_b   char(4)
+    declare @rand_b           char(12)
 
     -- Calculate the current time in milliseconds since the Unix epoch
-    DECLARE @currentTime BIGINT = DATEDIFF_BIG(MILLISECOND, '1970-01-01', GETUTCDATE())
+    declare @currentTime bigint = datediff_big(millisecond, '1970-01-01', getutcdate())
     
     -- Convert the timestamp to hexadecimal, divided into two parts
-    SET @timestamp_hex = RIGHT('00000000' + CONVERT(VARCHAR(8), CONVERT(VARBINARY(4), @currentTime / 65536), 2), 8)
-    SET @milliseconds_hex = RIGHT('0000' + CONVERT(VARCHAR(4), CONVERT(VARBINARY(2), @currentTime % 65536), 2), 4)
+    set @timestamp_hex = right('00000000' + convert(varchar(8), convert(varbinary(4), @currentTime / 65536), 2), 8)
+    set @milliseconds_hex = right('0000' + convert(varchar(4), convert(varbinary(2), @currentTime % 65536), 2), 4)
 
     -- Generate a random value for the version/rand_a part, combine it with the version identifier (0x7000), and convert to hexadecimal
-    DECLARE @rand_a INT = CAST(FLOOR(RAND(CHECKSUM(NEWID())) * 4096) AS INT) -- 0x0FFF = 4095
-    SET @version_rand_a = RIGHT('0000' + CONVERT(VARCHAR(4), CONVERT(VARBINARY(2), 0x7000 + @rand_a), 2), 4)
+    declare @rand_a int = cast(floor(rand(checksum(newid())) * 4096) as int) -- 0x0FFF = 4095
+    set @version_rand_a = right('0000' + convert(varchar(4), convert(varbinary(2), 0x7000 + @rand_a), 2), 4)
 
     -- Generate a random value for the variant/rand_b part, combine it with the variant identifier (0x8000), and convert to hexadecimal
-    DECLARE @rand_b_part INT = CAST(FLOOR(RAND(CHECKSUM(NEWID())) * 16384) AS INT) -- 0x3FFF = 16383
-    SET @variant_rand_b = RIGHT('0000' + CONVERT(VARCHAR(4), CONVERT(VARBINARY(2), 0x8000 + @rand_b_part), 2), 4)
+    declare @rand_b_part int = cast(floor(rand(checksum(newid())) * 16384) as int) -- 0x3FFF = 16383
+    set @variant_rand_b = right('0000' + convert(varchar(4), convert(varbinary(2), 0x8000 + @rand_b_part), 2), 4)
 
     -- Generate a large random value for the rand_b part and convert to hexadecimal
-    DECLARE @rand_b_bigint BIGINT = FLOOR(RAND(CHECKSUM(NEWID())) * POWER(CAST(2 AS BIGINT), 48))
-    SET @rand_b = RIGHT('000000000000' + CONVERT(VARCHAR(12), CONVERT(VARBINARY(6), @rand_b_bigint / 65536), 2), 12)
+    declare @rand_b_bigint bigint = floor(rand(checksum(newid())) * power(cast(2 as bigint), 48))
+    set @rand_b = right('000000000000' + convert(varchar(12), convert(varbinary(6), @rand_b_bigint / 65536), 2), 12)
 
     -- Combine all parts to form the final UUID v7-like value
-    DECLARE @UUIDv7 CHAR(36)
-    SET @UUIDv7 = @timestamp_hex + '-' + @milliseconds_hex + '-' + @version_rand_a + '-' + @variant_rand_b + '-' + @rand_b
+    declare @UUIDv7 char(36)
+    set @UUIDv7 = @timestamp_hex + '-' + @milliseconds_hex + '-' + @version_rand_a + '-' + @variant_rand_b + '-' + @rand_b
 
     -- Return the generated UUID v7-like value
-    SELECT @UUIDv7 AS UUIDv7
+    select @UUIDv7 as UUIDv7
 END
