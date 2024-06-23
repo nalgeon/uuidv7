@@ -4,18 +4,18 @@ randomize()
 
 proc uuidv7(): seq[byte] =
   # random bytes
-  result = 16.newSeqWith(256.rand().byte)
+  result = newSeqWith(16, rand(255).byte)
 
   # current timestamp in ms
-  let timestamp = epochTime().uint64 * 1000
+  let timestamp = (epochTime() * 1000).uint64
 
   # timestamp
-  result[0] = (timestamp shr 40).byte and 0xFF
-  result[1] = (timestamp shr 32).byte and 0xFF
-  result[2] = (timestamp shr 24).byte and 0xFF
-  result[3] = (timestamp shr 16).byte and 0xFF
-  result[4] = (timestamp shr 8).byte and 0xFF
-  result[5] = timestamp.byte and 0xFF
+  result[0] = (timestamp shr 40).byte
+  result[1] = (timestamp shr 32).byte
+  result[2] = (timestamp shr 24).byte
+  result[3] = (timestamp shr 16).byte
+  result[4] = (timestamp shr 8).byte
+  result[5] = timestamp.byte
 
   # version and variant
   result[6] = (result[6] and 0x0F) or 0x70
