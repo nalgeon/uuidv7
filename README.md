@@ -45,6 +45,7 @@ See [RFC 9652](https://www.rfc-editor.org/rfc/rfc9562#name-uuid-version-7) for d
 [Kotlin](src/uuidv7.kt) •
 [Lua](src/uuidv7.lua) •
 [Nim](src/uuidv7.nim) •
+[Nushell](src/uuidv7.nu) •
 [Perl](src/uuidv7.pl) •
 [PHP](src/uuidv7.php) •
 [Pascal](src/uuidv7.pas) •
@@ -55,6 +56,7 @@ See [RFC 9652](https://www.rfc-editor.org/rfc/rfc9562#name-uuid-version-7) for d
 [Rust](src/uuidv7.rs) •
 [Shell](src/uuidv7.sh) •
 [SQL](src/uuidv7.sql) •
+[SQL Server](src/uuidv7.tsql) •
 [Swift](src/uuidv7.swift) •
 [Tcl](src/uuidv7.tcl) •
 [V](src/uuidv7.v) •
