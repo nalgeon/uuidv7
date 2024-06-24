@@ -18,7 +18,7 @@ pub fn uuiv7() -> BitArray {
 }
 
 pub fn to_string(ints: BitArray) -> String {
-  convert_to_base64(ints, 0, "")
+  to_base16(ints, 0, "")
 }
 
 fn to_base16(ints: BitArray, position: Int, acc: String) -> String {
