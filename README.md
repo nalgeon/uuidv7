@@ -38,6 +38,7 @@ See [RFC 9652](https://www.rfc-editor.org/rfc/rfc9562#name-uuid-version-7) for d
 [Emacs Lisp](src/uuidv7.el) •
 [Elixir](src/uuidv7.exs) •
 [Erlang](src/uuidv7.erl) •
+[Gleam](src/uuidv7.gleam) •
 [Go](src/uuidv7.go) •
 [Java](src/uuidv7.java) •
 [JavaScript](src/uuidv7.js) •
