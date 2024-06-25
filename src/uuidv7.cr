@@ -11,8 +11,10 @@ class Uuidv7
     # random bytes
     value = @@rand.random_bytes(16)
 
-    # current timestamp
+    # current timestamp in ms
     timestamp = Time.utc.to_unix_ms
+
+    # timestamp
     timestamp_bytes = StaticArray(UInt8, 8).new(0).to_slice
     IO::ByteFormat::BigEndian.encode(timestamp, timestamp_bytes)
     timestamp_bytes[2..].copy_to(value)
