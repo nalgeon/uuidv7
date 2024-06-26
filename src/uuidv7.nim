@@ -1,10 +1,8 @@
-import std/[times, strutils, sequtils, random]
-
-randomize()
+import std/[times, strutils, sequtils, sysrand]
 
 proc uuidv7(): seq[byte] =
   # random bytes
-  result = 16.newSeqWith(256.rand().byte)
+  result = urandom(16)
 
   # current timestamp in ms
   let timestamp = epochTime().uint64 * 1000
