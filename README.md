@@ -41,6 +41,7 @@ See [RFC 9652](https://www.rfc-editor.org/rfc/rfc9562#name-uuid-version-7) for d
 [F#](src/uuidv7.fsx) •
 [Gleam](src/uuidv7.gleam) •
 [Go](src/uuidv7.go) •
+[Inko](src/uuidv7.inko) •
 [Java](src/uuidv7.java) •
 [JavaScript](src/uuidv7.js) •
 [Julia](src/uuidv7.jl) •
