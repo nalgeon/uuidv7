@@ -3,6 +3,9 @@
 #include <cstdint>
 #include <cstdio>
 #include <random>
+#include <algorithm>
+#include <function>
+#include <iostream>
 
 std::array<uint8_t, 16> uuidv7() {
     // random bytes
