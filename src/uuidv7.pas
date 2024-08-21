@@ -1,8 +1,6 @@
 // Use as a regular unit from Delphi, or run as a console app from FreePascal
 unit uuidv7;
 
-{$DEFINE CALLRANDOMIZE}
-
 interface
 
 uses
@@ -24,14 +22,13 @@ begin
   FillChar(uuid, SizeOf(uuid), 0);
 
   // Generate 10 random bytes
-  for i := 0 to 9 do
+  for i := 0 to 8 do
     randomBytes[i] := Random($FF);
 
   // Populate the TGUID fields
   uuid.D1 := (atimestamp shr 16) and $FFFFFFFF;      // Top 32 bits of the 48-bit timestamp
-  uuid.D2 := ((atimestamp shr 4) and $FFFF);         // Next 16 bits of the timestamp and version 7
-  uuid.D3 := ((atimestamp and $0000000F) shl 12) or  // the last 4 bits of timestamp
-              (randomBytes[0] and $F0) or $7000;     // the top 4 bits of randomBytes[0]
+  uuid.D2 := (atimestamp and $FFFF);         // Next 16 bits of the timestamp and version 7
+  uuid.D3 := (RandomBytes[8] SHL 4) or ((randomBytes[0] and $F0) shr 4) or $7000;
   uuid.D4[0] := (randomBytes[0] and $0F) or $80;     // Set the variant to 10xx
   Move(randomBytes[1], uuid.D4[1], 7);               // Remaining 7 bytes
 
@@ -54,16 +51,12 @@ end;
 {$IFDEF FPC}
 var i: Integer;
 begin
-  {$IFDEF CALLRANDOMIZE}
   Randomize;
-  {$ENDIF}
   for i := 0 to 30 do
     writeln(GUIDToString(GenerateUUIDv7).ToLower);
   readln;
 {$ELSE}
 initialization
-  {$IFDEF CALLRANDOMIZE}
   Randomize;
-  {$ENDIF}
 {$ENDIF}
 end.
