@@ -28,7 +28,7 @@ begin
         randomBytes[i] := Random($FF);
     end
   else
-    move(aBytes[0],RandomBytes[0],9);
+    move(aBytes[0],RandomBytes[0],10);
 
   // Populate the TGUID fields
   uuid.D1 := (atimestamp shr 16) and $FFFFFFFF;      // Top 32 bits of the 48-bit timestamp
