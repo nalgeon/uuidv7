@@ -19,15 +19,11 @@ public class UUIDv7 {
         random.nextBytes(value);
 
         // current timestamp in ms
-        long timestamp = System.currentTimeMillis();
+        ByteBuffer timestamp = ByteBuffer.allocate(Long.BYTES);
+        timestamp.putLong(System.currentTimeMillis());
 
         // timestamp
-        value[0] = (byte) ((timestamp >> 40) & 0xFF);
-        value[1] = (byte) ((timestamp >> 32) & 0xFF);
-        value[2] = (byte) ((timestamp >> 24) & 0xFF);
-        value[3] = (byte) ((timestamp >> 16) & 0xFF);
-        value[4] = (byte) ((timestamp >> 8) & 0xFF);
-        value[5] = (byte) (timestamp & 0xFF);
+        System.arraycopy(timestamp.array(), 2, value, 0, 6);
 
         // version and variant
         value[6] = (byte) ((value[6] & 0x0F) | 0x70);
