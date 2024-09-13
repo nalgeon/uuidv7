@@ -1,0 +1,36 @@
+create procedure GenerateUUIDv7
+as
+begin
+    -- Declare variables to hold different parts of the UUID
+    declare @timestamp_hex    char(8)
+    declare @milliseconds_hex char(4)
+    declare @version_rand_a   char(4)
+    declare @variant_rand_b   char(4)
+    declare @rand_b           char(12)
+
+    -- Calculate the current time in milliseconds since the Unix epoch
+    declare @currentTime bigint = datediff_big(millisecond, '1970-01-01', getutcdate())
+    
+    -- Convert the timestamp to hexadecimal, divided into two parts
+    set @timestamp_hex = right('00000000' + convert(varchar(8), convert(varbinary(4), @currentTime / 65536), 2), 8)
+    set @milliseconds_hex = right('0000' + convert(varchar(4), convert(varbinary(2), @currentTime % 65536), 2), 4)
+
+    -- Generate a random value for the version/rand_a part, combine it with the version identifier (0x7000), and convert to hexadecimal
+    declare @rand_a int = cast(floor(rand(checksum(newid())) * 4096) as int) -- 0x0FFF = 4095
+    set @version_rand_a = right('0000' + convert(varchar(4), convert(varbinary(2), 0x7000 + @rand_a), 2), 4)
+
+    -- Generate a random value for the variant/rand_b part, combine it with the variant identifier (0x8000), and convert to hexadecimal
+    declare @rand_b_part int = cast(floor(rand(checksum(newid())) * 16384) as int) -- 0x3FFF = 16383
+    set @variant_rand_b = right('0000' + convert(varchar(4), convert(varbinary(2), 0x8000 + @rand_b_part), 2), 4)
+
+    -- Generate a large random value for the rand_b part and convert to hexadecimal
+    declare @rand_b_bigint bigint = floor(rand(checksum(newid())) * power(cast(2 as bigint), 48))
+    set @rand_b = right('000000000000' + convert(varchar(12), convert(varbinary(6), @rand_b_bigint / 65536), 2), 12)
+
+    -- Combine all parts to form the final UUID v7-like value
+    declare @UUIDv7 char(36)
+    set @UUIDv7 = @timestamp_hex + '-' + @milliseconds_hex + '-' + @version_rand_a + '-' + @variant_rand_b + '-' + @rand_b
+
+    -- Return the generated UUID v7-like value
+    select @UUIDv7 as UUIDv7
+end

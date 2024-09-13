@@ -4,7 +4,7 @@ function uuidv7()
 
   # current timestamp
   timestamp = trunc(UInt64, time() * 1000)
-  reinterpret(UInt8, [timestamp])[1:end-2] |> reverse! |> x -> copyto!(value, 1, x, 1, 6)
+  digits!(UInt8[0, 0, 0, 0, 0, 0, 0, 0], hton(timestamp), base=256) |> x -> copyto!(value, 1, x, 3, 6)
 
   # version and variant
   value[7] = value[7] & 0x0F | 0x70
