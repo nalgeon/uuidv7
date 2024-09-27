@@ -26,7 +26,7 @@ begin
 
   // Generate 10 random bytes
   for i := 0 to 9 do
-    randomBytes[i] := Random($FF);
+    randomBytes[i] := Random($100);
 
   // Populate the TGUID fields
   uuid.D1 := (timestamp shr 16) and $FFFFFFFF;       // Top 32 bits of the 48-bit timestamp
