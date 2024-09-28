@@ -1,0 +1,42 @@
+import std.int (Format)
+import std.rand (Random)
+import std.stdio (STDOUT)
+import std.string (StringBuffer)
+import std.time (DateTime)
+
+fn uuid -> ByteArray {
+  # Get the time in milliseconds, without discarding the sub seconds (i.e. the
+  # precision is greater compared to just using DateTime.to_int).
+  let time = (DateTime.utc.to_float * 1000.0).to_int
+
+  # Generate a `ByteArray` containing 16 securely generated random bytes.
+  let value = Random.new.bytes(16)
+
+  # Set the timestamp. The values are converted to bytes automatically.
+  value.set(0, time >> 40)
+  value.set(1, time >> 32)
+  value.set(2, time >> 24)
+  value.set(3, time >> 16)
+  value.set(4, time >> 8)
+  value.set(5, time)
+
+  # Set the version and variant.
+  value.set(6, value.get(6) & 0x0F | 0x70)
+  value.set(8, value.get(8) & 0x3F | 0x80)
+  value
+}
+
+class async Main {
+  fn async main {
+    let stdout = STDOUT.new
+    let output = StringBuffer.new
+
+    # Format each byte and store it in the buffer. This way we don't have to
+    # write to STDOUT for each individual byte.
+    uuid.iter.each(fn (b) {
+      output.push(b.format(Format.Hex).pad_start(with: '0', chars: 2))
+    })
+
+    stdout.print(output.to_string)
+  }
+}
