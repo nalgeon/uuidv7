@@ -20,10 +20,10 @@ var
   i: Integer;
 begin
   FillChar(uuid, SizeOf(uuid), 0);
-
+  
   if Length(aBytes) <> 10 then
   begin
-    // Generate 9 random bytes
+    // Generate 10 random bytes
     for i := 0 to 9 do
       randomBytes[i] := Random($100);
   end
@@ -44,15 +44,13 @@ end;
 function GenerateUUIDv7:TGUID;
 var
   timestamp: Int64;
-  i: Integer;
 begin
   {$IFDEF FPC}
   timestamp := DateTimeToUnix(Now) * 1000; // seconds accuracy
   {$ELSE}
   timestamp := DateTimeToMilliseconds(Now) - Int64(UnixDateDelta + DateDelta) * MSecsPerDay; // millisecond accuracy
   {$ENDIF}
-
-  Result := GenerateUUIDv7ex(timestamp);
+  Result := GenerateUUIDv7ex(Timestamp,[]);
 end;
 
 // Optionally remove this to make a regular unit for FPC too
