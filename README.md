@@ -53,6 +53,7 @@ See [RFC 9652](https://www.rfc-editor.org/rfc/rfc9562#name-uuid-version-7) for d
 [PHP](src/uuidv7.php) •
 [Pascal](src/uuidv7.pas) •
 [PowerShell](src/uuidv7.ps1) •
+[PySpark](src/uuidv7-spark.py) •
 [Python](src/uuidv7.py) •
 [R](src/uuidv7.r) •
 [Racket](src/uuidv7.rkt) •
