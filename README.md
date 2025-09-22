@@ -60,6 +60,7 @@ See [RFC 9652](https://www.rfc-editor.org/rfc/rfc9562#name-uuid-version-7) for d
 [Ruby](src/uuidv7.rb) •
 [Rust](src/uuidv7.rs) •
 [Shell](src/uuidv7.sh) •
+[Spark SQL](src/uuidv7-spark.sql) •
 [SQL](src/uuidv7.sql) •
 [SQL Server](src/uuidv7.tsql) •
 [Swift](src/uuidv7.swift) •
