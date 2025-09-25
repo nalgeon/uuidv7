@@ -22,4 +22,4 @@ select
   -- variant / rand_b
   lpad(to_hex((0x8000 + (random() * 0x3fff)::int)), 4, '0') || '-' ||
   -- rand_b
-  lpad(to_hex((floor(random() * (2^48))::bigint >> 16)), 12, '0') AS value;
+  lpad(to_hex((floor(random() * (2^48))::bigint)), 12, '0') AS value;
