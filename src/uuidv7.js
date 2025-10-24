@@ -1,23 +1,20 @@
 function uuidv7() {
-    // random bytes
-    const value = new Uint8Array(16);
-    crypto.getRandomValues(value);
-
+    const buffer = new ArrayBuffer(16);
+    const view = new DataView(buffer);
+    const value = new Uint8Array(buffer);
+    
     // current timestamp in ms
-    const timestamp = BigInt(Date.now());
-
-    // timestamp
-    value[0] = Number((timestamp >> 40n) & 0xffn);
-    value[1] = Number((timestamp >> 32n) & 0xffn);
-    value[2] = Number((timestamp >> 24n) & 0xffn);
-    value[3] = Number((timestamp >> 16n) & 0xffn);
-    value[4] = Number((timestamp >> 8n) & 0xffn);
-    value[5] = Number(timestamp & 0xffn);
-
+    const timestamp = Date.now();
+    view.setUint16(0, Math.floor(timestamp / 2**32));
+    view.setUint32(2, timestamp);
+    
+    // random bytes
+    crypto.getRandomValues(value.subarray(6));
+    
     // version and variant
     value[6] = (value[6] & 0x0f) | 0x70;
     value[8] = (value[8] & 0x3f) | 0x80;
-
+    
     return value;
 }
 
