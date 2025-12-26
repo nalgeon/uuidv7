@@ -1,22 +1,21 @@
+;; UUIDv7 implementation in Clojure.
+;; License: Public Domain.
+
 (ns uuidv7
-  (:require [clojure.string :as str])
-  (:import (java.security SecureRandom)))
+  (:import (java.security SecureRandom)
+           (java.util UUID)))
 
-(defn gen-uuid-v7 []
-  (let [rand-array (byte-array 10)]
-    (.nextBytes (SecureRandom.) rand-array)
-    (concat
-      ;; timestamp
-      (map byte (.toByteArray (biginteger (System/currentTimeMillis))))
-      ;; version
-      [(bit-or (bit-and (first rand-array) 0x0F) 0x70)]
-      [(nth rand-array 1)]
-      ;; variant
-      [(bit-or (bit-and (nth rand-array 2) 0x3F) 0x80)]
-      (drop 3 rand-array))))
+(defonce ^SecureRandom rng (SecureRandom.))
 
-(defn uuid-to-string [uuid-bytes]
-  (apply str (map #(format "%02x" %) uuid-bytes)))
+(defn uuid-v7 []
+  (let [ts (System/currentTimeMillis)
+        ;; timestamp (48 bits)
+        hi-bits (bit-or (bit-shift-left ts 16)
+                        ;; version + rand_a (12 bits)
+                        (bit-or 0x7000 (bit-and (.nextLong rng) 0x0FFF)))
+        ;; variant (10xx) + rand_b (62 bits)
+        lo-bits (bit-or (bit-shift-left 2 62)
+                        (bit-and (.nextLong rng) 0x3FFFFFFFFFFFFFFF))]
+    (UUID. hi-bits lo-bits)))
 
-(def uuid-bytes (gen-uuid-v7))
-(println (uuid-to-string uuid-bytes))
+(println (str (uuid-v7)))
