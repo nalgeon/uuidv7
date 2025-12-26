@@ -6,14 +6,16 @@
 #include <chrono>
 #include <cstdint>
 #include <cstdio>
+#include <cstring>
 #include <random>
 
 std::array<uint8_t, 16> uuidv7() {
-    static thread_local std::mt19937 gen(std::random_device{}());
+    static thread_local std::random_device rd;
     std::array<uint8_t, 16> value;
 
     // random bytes
-    std::generate(value.begin(), value.end(), std::ref(gen));
+    uint32_t randb[4] = {rd(), rd(), rd(), rd()};
+    std::memcpy(value.data(), randb, sizeof(randb));
 
     // current timestamp in ms
     auto now = std::chrono::system_clock::now();
