@@ -1,20 +1,12 @@
-SELECT
-  CONCAT(
-    -- First 8 chars: high 32 bits of timestamp
-    SUBSTRING(LPAD(LOWER(HEX(unix_millis(current_timestamp()))), 12, '0'), 1, 8),
-    '-',
-    -- Next 4 chars: low 16 bits of timestamp
-    SUBSTRING(LPAD(LOWER(HEX(unix_millis(current_timestamp()))), 12, '0'), 9, 4),
-    '-',
-    -- Next 4 chars: version (7) + 12 bits of rand_a
-    CONCAT(
-      '7',
-      LPAD(LOWER(HEX(CAST(RAND() * 4096 AS INT))), 3, '0')
-    ),
-    '-',
-    -- Next 4 chars: variant (10) + 14 bits random
-    LPAD(LOWER(HEX(CAST(RAND() * 16384 + 32768 AS INT))), 4, '0'),
-    '-',
-    -- Last 12 chars: 48 bits of random data
-    LPAD(LOWER(HEX(CAST(RAND() * 281474976710656 AS BIGINT))), 12, '0')
+-- UUIDv7 implementation for PySpark SQL.
+-- License: Public Domain.
+
+select
+  printf('%08x-%04x-7%03x-%04x-%012x',
+    shiftright(ts, 16),                      -- timestamp (high 32 bits)
+    ts & 65535,                              -- timestamp (low 16 bits)
+    cast(rand() * 4096 as int),              -- rand_a (12 bits)
+    (cast(rand() * 16384 as int) | 32768),   -- rand_b (variant + 14 bits)
+    cast(rand() * 281474976710656 as bigint) -- rand_b (last 48 bits)
   )
+from (select unix_millis(current_timestamp()) as ts)
