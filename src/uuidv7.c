@@ -1,37 +1,37 @@
+// UUIDv7 implementation in C (POSIX).
+// License: Public Domain.
+
 #include <stdint.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <time.h>
 #include <unistd.h>
 
-int uuidv7(uint8_t* value) {
-    // random bytes
-    int err = getentropy(value, 16);
-    if (err != EXIT_SUCCESS) {
-        return EXIT_FAILURE;
-    }
-
+int uuidv7(uint8_t value[16]) {
     // current timestamp in ms
     struct timespec ts;
-    int ok = timespec_get(&ts, TIME_UTC);
-    if (ok == 0) {
-        return EXIT_FAILURE;
+    if (clock_gettime(CLOCK_REALTIME, &ts) != 0) {
+        return -1;
     }
-    uint64_t timestamp = (uint64_t)ts.tv_sec * 1000 + ts.tv_nsec / 1000000;
+    uint64_t ms = (uint64_t)ts.tv_sec * 1000 + (ts.tv_nsec / 1000000);
 
-    // timestamp
-    value[0] = (timestamp >> 40) & 0xFF;
-    value[1] = (timestamp >> 32) & 0xFF;
-    value[2] = (timestamp >> 24) & 0xFF;
-    value[3] = (timestamp >> 16) & 0xFF;
-    value[4] = (timestamp >> 8) & 0xFF;
-    value[5] = timestamp & 0xFF;
+    // timestamp (48 bits)
+    value[0] = (uint8_t)(ms >> 40);
+    value[1] = (uint8_t)(ms >> 32);
+    value[2] = (uint8_t)(ms >> 24);
+    value[3] = (uint8_t)(ms >> 16);
+    value[4] = (uint8_t)(ms >> 8);
+    value[5] = (uint8_t)ms;
+
+    // 80 random bits
+    if (getentropy(value + 6, 10) != 0) {
+        return -1;
+    }
 
     // version and variant
     value[6] = (value[6] & 0x0F) | 0x70;
     value[8] = (value[8] & 0x3F) | 0x80;
 
-    return EXIT_SUCCESS;
+    return 0;
 }
 
 int main() {
