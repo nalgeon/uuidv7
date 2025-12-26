@@ -1,30 +1,27 @@
+# UUIDv7 implementation in Crystal.
+# License: Public Domain.
+
 require "uuid"
 
-class Uuidv7
-  @@rand = Random.new
-
-  @uuid : UUID
-
-  forward_missing_to @uuid
-
-  def initialize
-    # random bytes
-    value = @@rand.random_bytes(16)
-
-    # current timestamp in ms
-    timestamp = Time.utc.to_unix_ms
+struct UUIDv7
+  def self.generate : UUID
+    value = Random::Secure.random_bytes(16)
+    ts = Time.utc.to_unix_ms
 
     # timestamp
-    timestamp_bytes = StaticArray(UInt8, 8).new(0).to_slice
-    IO::ByteFormat::BigEndian.encode(timestamp, timestamp_bytes)
-    timestamp_bytes[2..].copy_to(value)
+    value[0] = (ts >> 40).to_u8!
+    value[1] = (ts >> 32).to_u8!
+    value[2] = (ts >> 24).to_u8!
+    value[3] = (ts >> 16).to_u8!
+    value[4] = (ts >> 8).to_u8!
+    value[5] = ts.to_u8!
 
     # version and variant
-    value[6] = (value[6] & 0x0F) | 0x70
-    value[8] = (value[8] & 0x0F) | 0x80
+    value[6] = (value[6] & 0x0f) | 0x70
+    value[8] = (value[8] & 0x3f) | 0x80
 
-    @uuid = UUID.new(value)
+    UUID.new(value)
   end
 end
 
-puts Uuidv7.new.hexstring
+puts UUIDv7.generate
